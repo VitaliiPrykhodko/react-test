@@ -1,14 +1,37 @@
-import ReactDom from "react-dom";
-import { Card } from "./user";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
+const Button = ({ changeMessage, label }) => (
+  <button type="button" onClick={changeMessage}>
+    {label}
+  </button>
+);
 
-function Render() {
- return <div>
-  <h2>Hello React</h2>
-  {Card}
-</div>
+class App extends Component {
+  state = {
+    message: new Date().toLocaleTimeString(),
+  };
 
+  // Метод який будемо передавати в Button для виклику при кліку
+  updateMessage = evt => {
+    console.log(evt); // Доступний об'єкт події
+
+    this.setState({
+      message: new Date().toLocaleTimeString(),
+    });
+  };
+
+  render() {
+    return (
+      <>
+        <span>{this.state.message}</span>
+        <Button label="Change message" changeMessage={this.updateMessage} />
+      </>
+    );
+  }
 }
 
 
-ReactDom.render(<Render/>, document.querySelector('#root'))
+
+ReactDOM.render(<App/>, document.getElementById('root'));
+
